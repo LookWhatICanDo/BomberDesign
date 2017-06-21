@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2017 by so2niko (http://jsbin.com/yifeda/2/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+.playground{
+	width: 800px;
+	height: 600px;
+	border: 3px solid black;
+	margin: 10px auto;
+}
+
+.gamer{
+	width: 30px;
+	height: 30px;
+	border: 1px solid black;
+	background: #0f0;
+	position: relative;
+	top: 0;
+	left: 0;
+    border-top: 1px solid red;
+}
+</style>
+</head>
+<body>
+	<div class="playground">
+		<div class="gamer"></div>
+	</div>
+<script id="jsbin-javascript">
+var gamer = {};
+
+gamer.DOM = document.querySelector('.playground>.gamer');
+
+gamer.left = 0;
+gamer.top = 0;
+
+var pewpew = document.createElement('div');
+pewpew.style.position= "relative";
+pewpew.style.height = "5px";
+pewpew.style.width = "2px";
+pewpew.style.background = "red";
+
+pewpew.className = "pew1";
+var battlefield = document.querySelector('.playground');
+
+
+
+function move(event){
+	switch(event.keyCode){
+		case 38:{
+			gamer.top -=5;
+			if(gamer.top < 0){
+				gamer.top = 0;
+			}
+			gamer.DOM.style.top = gamer.top + "px";
+			gamer.DOM.style.border = "1px solid black";
+			gamer.DOM.style.borderTop = "1px solid red";
+			gamer.DOM.style.background = "linear-gradient(to top, #0f0, #000)";
+			break;
+		}
+		case 40:{
+			if(gamer.top > 563){
+				gamer.top = 563;
+			}
+			gamer.top +=5;
+			gamer.DOM.style.top = gamer.top + "px";
+			gamer.DOM.style.border = "1px solid black";
+			gamer.DOM.style.borderBottom = "1px solid red";
+			gamer.DOM.style.background = "linear-gradient(to bottom, #0f0, #000)";
+			break;
+		}
+		case 37:{
+			gamer.left -=5;
+			if(gamer.left < 0){
+				gamer.left = 0;
+			}
+			gamer.DOM.style.left = gamer.left + "px";
+			gamer.DOM.style.border = "1px solid black";
+			gamer.DOM.style.borderLeft = "1px solid red";
+			gamer.DOM.style.background = "linear-gradient(to left, #0f0, #000)";
+			break;
+		}
+		case 39:{
+			gamer.left +=5;
+			if(gamer.left > 768){
+				gamer.left = 768;
+			}
+			gamer.DOM.style.left = gamer.left + "px";
+			gamer.DOM.style.border = "1px solid black";
+			gamer.DOM.style.borderRight = "1px solid red";
+			gamer.DOM.style.background = "linear-gradient(to right, #0f0, #000)";
+			break;
+		}
+	    case 80: {
+	        
+	        pewpew.style.top = gamer.top + "px";
+	        pewpew.style.left = gamer.left + "px";
+
+	        battlefield.appendChild(pewpew);
+
+	        pewMove(gamer.top, gamer.left);
+	        break;
+	    }
+
+	}
+	
+	
+}
+
+function fireVertical(pewY) {
+    pewpew.style.top = pewY + "px";
+}
+
+function pewMove(top, left) {
+    var pewX= left, pewY=top,
+        timeStamp = 0;
+    pewpew.style.top = pewY + "px";
+    pewpew.style.left = pewX + "px";
+    while (pewY < 563) {
+        timeStamp += 100;
+        pewY += 5;
+        setTimeout(fireVertical, timeStamp, pewY);
+    }
+
+}
+
+
+
+
+document.body.addEventListener('keydown', move);
+
+</script>
+</body>
+</html>
